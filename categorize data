@@ -1,0 +1,44 @@
+
+#importing librarys
+import pandas as pd
+import os              
+os.chdir('E:\python\data set')   #to change the directory
+
+#uploading the data
+datapractice=pd.read_excel('practice data sheet.xlsx',index_col=0,na_value=['*'])
+
+#printing the data
+print(datapractice.head())
+datapractice.info()
+
+#droping nan vlues
+datapractice.dropna(axis=0, inplace=True)
+
+
+#replacing the string values with integers
+datapractice['TDS'].replace('four',4,inplace=True)
+#converting data type into integer
+datapractice['TDS'].astype('int64')
+datapractice['COD'].astype('int64')
+#datapractice['pH'].astype('int64')
+print(datapractice.head())
+datapractice.info()
+
+datapractice.insert(3,'tds_range',"")
+print(datapractice.head(9))  #print the new data
+
+
+#creating low, medium and high range for tds using for loop
+i=0
+while i<=len(datapractice['COD']):
+    if (datapractice['COD'][i]<= 10):
+        datapractice['COD range'][i]='low'
+    elif(datapractice['TDS'][i]>99):
+        datapractice['COD range'][i]='high'
+    else:
+        datapractice['COD range'][i]='medium'
+        i=i+1
+
+
+#print new data
+print(len(datapractice['TDS']))
